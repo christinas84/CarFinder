@@ -486,20 +486,20 @@
             Car Finder.
             </summary>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetModelYears">
+        <member name="M:CarFinder.Controllers.CarController.GetAllYears">
             <summary>
             Get all cars by year.
             </summary>
             <returns>This method will return from the stored procedure GetModelYears all the years of vehicles in the database in descending order.</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetMakesByYear(System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetMakesByYear(CarFinder.Controllers.CarController.Selected)">
             <summary>
             Get makes by year
             </summary>
-            <param name="model_year"></param>
+            <param name="selected.year.year"></param>
             <returns>This method will return from the stored procedure GetMakesByYear vehicle makes by year selected.</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetModelsByYearMake(System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetModelsByYearMake(CarFinder.Controllers.CarController.Selected)">
             <summary>
             Get the models by the year and make
             </summary>
@@ -507,7 +507,7 @@
             <param name="model_year"></param>
             <returns>This method returns from the stored procedure GetModelsByYearMake vehicle models by model year and make.</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetTrimsByYearMakeModel(System.String,System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetTrimsByYearMakeModel(CarFinder.Controllers.CarController.Selected)">
             <summary>
             Get trims by year, make and model
             </summary>
@@ -516,7 +516,7 @@
             <param name="model_name"></param>
             <returns>This method returns from the stored procedure GetTrimsByYearMakeModel vehicle trims by make, model year and model name.</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetCarsByYearMakeModelTrim(System.String,System.String,System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetCarsByYearMakeModelTrim(CarFinder.Controllers.CarController.Selected)">
             <summary>
             Get cars by model year, make, model name and model trim 
             </summary>

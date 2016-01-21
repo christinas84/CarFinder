@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="Content/mystyle.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/angular.min.js"></script>
+    <script src="App/App.js"></script>
+    <script src="App/carSvc.js"></script>
+    <script src="App/myCtrl.js"></script>
+</head>
+<body>
+    <div class="container" ng-controller="myCtrl as car">
+       <select ng-options="y for y in car.years"ng-model="car.selected.year" ng-change="car.getMakes()">
+               {{y}}
+               </select>
+        <select ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">
+                {{mak}}
+                </select>
+        <select ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getTrims()">
+                {{mod}}
+                </select>
+        <select ng-options="t for t in car.trims" ng-model="car.selected.trim" ng-change="car.getCars()">
+                {{t}}
+                </select>
+        <br />
+        <br />
+        Year: {{car.selected.year}}<br />
+        Make: {{car.selected.make}}<br />
+        Model: {{car.selected.model}}<br />
+        Trim: {{car.selected.trim}}<br />
+        <table>
+            <thead>           
+                <tr>
+                    <th>year</th>
+                    <th>make</th>
+                    <th>model</th>
+                    <th>trim</th>
+                    <th>engine</th>
+                    <th>drive</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <tr ng-repeat="c in car.cars">
+                    <td>{{c.model_year}}</td>
+                    <td>{{c.make}}</td>
+                    <td>{{c.model_trim}}</td>
+                    <td>{{c.engine_power_ps}}</td>
+                    <td>{{c.drive_type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>   
+</body>
+</html>

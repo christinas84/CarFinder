@@ -17,26 +17,37 @@ namespace CarFinder.Controllers
     public class CarController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        public class Selected
+        {
+            public string year { get; set; }
+            public string make { get; set; }
+            public string model { get; set; }
+            public string trim { get; set; }
+
+        }
         /// <summary>
         /// Get all cars by year.
         /// </summary>
         /// <returns>This method will return from the stored procedure GetModelYears all the years of vehicles in the database in descending order.</returns>
-        public IHttpActionResult GetModelYears()
+        [HttpPost]
+        public IHttpActionResult GetAllYears()
         {
 
             var retval = db.Database.SqlQuery<string>(
-                "EXEC GetModelYears").ToList();
+                "EXEC GetAllYears").ToList();
 
             return Ok(retval);
         }
         /// <summary>
         /// Get makes by year
         /// </summary>
-        /// <param name="model_year"></param>
+        /// <param name="selected.year"></param>
         /// <returns>This method will return from the stored procedure GetMakesByYear vehicle makes by year selected.</returns>
-        public IHttpActionResult GetMakesByYear(string model_year)
+        [HttpPost]
+        public IHttpActionResult GetMakesByYear(Selected selected)
         {
-            var yearParam = new SqlParameter("@model_year", model_year);
+            var yearParam = new SqlParameter("@model_year", selected.year);
             var retval = db.Database.SqlQuery<string>(
             "EXEC GetMakesByYear @model_year", yearParam).ToList();
 
@@ -48,11 +59,11 @@ namespace CarFinder.Controllers
         /// <param name="make"></param>
         /// <param name="model_year"></param>
         /// <returns>This method returns from the stored procedure GetModelsByYearMake vehicle models by model year and make.</returns>
-
-        public IHttpActionResult GetModelsByYearMake(string model_year, string make)
+        [HttpPost]
+        public IHttpActionResult GetModelsByYearMake(Selected selected)
         {
-            var carmake = new SqlParameter("@make", make);
-            var yearParam = new SqlParameter("@model_year", model_year);
+            var carmake = new SqlParameter("@make", selected.make);
+            var yearParam = new SqlParameter("@model_year", selected.year);
             var retval = db.Database.SqlQuery<string>(
             "EXEC GetModelsByYearMake @model_year, @make", yearParam, carmake).ToList();
 
@@ -65,11 +76,12 @@ namespace CarFinder.Controllers
         /// <param name="model_year"></param>
         /// <param name="model_name"></param>
         /// <returns>This method returns from the stored procedure GetTrimsByYearMakeModel vehicle trims by make, model year and model name.</returns>
-        public IHttpActionResult GetTrimsByYearMakeModel(string make, string model_year, string model_name)
+        [HttpPost]
+        public IHttpActionResult GetTrimsByYearMakeModel(Selected selected)
         {
-            var carmake = new SqlParameter("@make", make);
-            var yearParam = new SqlParameter("@model_year", model_year);
-            var carname = new SqlParameter("@model_name", model_name);
+            var carmake = new SqlParameter("@make", selected.make);
+            var yearParam = new SqlParameter("@model_year", selected.year);
+            var carname = new SqlParameter("@model_name", selected.model);
             var retval = db.Database.SqlQuery<string>(
             "EXEC GetTrimsByYearMakeModel @make, @model_year, @model_name", carmake, yearParam, carname).ToList();
 
@@ -83,16 +95,18 @@ namespace CarFinder.Controllers
         /// <param name="model_name"></param>
         /// <param name="model_trim"></param>
         /// <returns>This method will return from the stored procedure GetCarsByYearMakeModelTrim vehicles by the year, by the year and make, cars by year make and model and cars by year make model and trim.</returns>
-        public IHttpActionResult GetCarsByYearMakeModelTrim(string model_year, string make, string model_name, string model_trim)
+        [HttpPost]
+        public IHttpActionResult GetCarsByYearMakeModelTrim(Selected selected)
         {
-            var carmake = new SqlParameter("@make", make ?? "");
-            var yearParam = new SqlParameter("@model_year", model_year ?? "");
-            var carname = new SqlParameter("@model_name", model_name ?? "");
-            var cartrim = new SqlParameter("model_trim", model_trim ?? "");
+            var carmake = new SqlParameter("@make", selected.make ?? "");
+            var yearParam = new SqlParameter("@model_year", selected.year ?? "");
+            var carname = new SqlParameter("@model_name", selected.model ?? "");
+            var cartrim = new SqlParameter("model_trim", selected.trim ?? "");
             var retval = db.Database.SqlQuery<Car>(
             "EXEC GetCarsByYearMakeModelTrim @model_year, @make, @model_name, @model_trim", yearParam, carmake, carname, cartrim).ToList();
             return Ok(retval);
         }
+        [HttpPost]
         public async Task<IHttpActionResult> getCar(int Id)
         {
             HttpResponseMessage response;
@@ -117,12 +131,12 @@ namespace CarFinder.Controllers
             }
             Recalls = content;
 
-            var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
+            var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/v1/Image"));
 
             image.Credentials = new NetworkCredential("accountKey", "9DVmvKlSSAnTU1On117Lu4rMsXdLgjDI+sUWSdxdzIc");   //"dwmFt1J2rM45AQXkGTk4ebfcVLNcytTxGMHK6dgMreg"
             var marketData = image.Composite(
                 "image",
-                Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
+                Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + " " + "NOT ebay",
                 null,
                 null,
                 null,

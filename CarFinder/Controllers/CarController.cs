@@ -8,23 +8,29 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Bing;
+using Newtonsoft.Json;
 
 namespace CarFinder.Controllers
 {
     /// <summary>
     /// Car Finder.
     /// </summary>
+    //[RoutePrefix("api/Car/")]
     public class CarController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        public class Selected
+        public class Selected 
         {
             public string year { get; set; }
             public string make { get; set; }
             public string model { get; set; }
             public string trim { get; set; }
 
+        }
+        public class idClass
+        {
+            public int id { get; set; }
         }
         /// <summary>
         /// Get all cars by year.
@@ -106,13 +112,14 @@ namespace CarFinder.Controllers
             "EXEC GetCarsByYearMakeModelTrim @model_year, @make, @model_name, @model_trim", yearParam, carmake, carname, cartrim).ToList();
             return Ok(retval);
         }
+        //[Route ("details")]
         [HttpPost]
-        public async Task<IHttpActionResult> getCar(int Id)
+        public async Task<IHttpActionResult> getCar(idClass id)
         {
             HttpResponseMessage response;
             string content = "";
-            var Car = db.Cars.Find(Id);
-            var Recalls = "";
+            var Car = db.Cars.Find(id.id);
+
             var Image = "";
             using (var client = new HttpClient())
             {
@@ -129,7 +136,9 @@ namespace CarFinder.Controllers
                     return InternalServerError(e);
                 }
             }
-            Recalls = content;
+
+            dynamic Recalls = JsonConvert.DeserializeObject(content);
+
 
             var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/v1/Image"));
 
@@ -152,9 +161,75 @@ namespace CarFinder.Controllers
                 null
                 ).Execute();
 
-            Image = marketData.First().Image.First().MediaUrl;
+            //Image = marketData.First().Image.First().MediaUrl;
+            //return Ok(new { car = Car, recalls = Recalls, image = Image });
+            //return JSON.parse(new { car = Car, recalls = Recalls, image = Image });
+            // return Ok(Recalls);
+            var Images = marketData.FirstOrDefault()?.Image;
+            //int imgCnt = Images.Count();
+            foreach (var Img in Images)
+            {
+
+                if (UrlCtrl.IsUrl(Img.MediaUrl))
+                {
+                    Image = Img.MediaUrl;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+
+
+            }
+            if (string.IsNullOrWhiteSpace(Image))
+            {
+                Image = "images/carnotfound.jpg";
+            }
             return Ok(new { car = Car, recalls = Recalls, image = Image });
-           // return Ok(Recalls);
+        }
+            public static class UrlCtrl
+        {
+            public static bool IsUrl(string path)
+            {
+                HttpWebResponse response = null;
+                var request = (HttpWebRequest)WebRequest.Create(path);
+                request.Method = "HEAD";
+                bool result = true;
+
+                try
+                {
+                    response = (HttpWebResponse)request.GetResponse();
+                }
+                catch (WebException ex)
+                {
+                    /* A WebException will be thrown if the status of the response is not `200 OK` */
+                    result = false;
+                }
+                finally
+                {
+                    // Don't forget to close your response.
+                    if (response != null)
+                    {
+                        response.Close();
+                    }
+
+                }
+
+                return result;
+
+
+
+
+                //    Uri uriResult;
+                //    bool result = Uri.TryCreate(str, UriKind.Absolute, out uriResult) &&
+                //    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                //bool result = File.Exists(path);
+                //return result;
+            }
+            //public static bool Exists(
+            //    string path
+            //);
         }
     }
-}
+    }

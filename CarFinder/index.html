@@ -1,56 +1,426 @@
-﻿<!DOCTYPE html>
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-    <title></title>
-	<meta charset="utf-8" />
-    <link href="Content/mystyle.css" rel="stylesheet" />
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <title>CES Car Finder</title>
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+    <!--<link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">-->
+    <link rel="stylesheet" href="css/lightbox.css">
+    <link href="Content/trNgGrid.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
     <script src="Scripts/angular.min.js"></script>
     <script src="App/App.js"></script>
     <script src="App/carSvc.js"></script>
     <script src="App/myCtrl.js"></script>
+    <script src="Scripts/trNgGrid.min.js"></script>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Ramble Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //Custom Theme files -->
+    <!-- js -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <!-- //js -->
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <!--//end-animate-->
 </head>
 <body>
-    <div class="container" ng-controller="myCtrl as car">
-       <select ng-options="y for y in car.years"ng-model="car.selected.year" ng-change="car.getMakes()">
-               {{y}}
-               </select>
-        <select ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">
-                {{mak}}
-                </select>
-        <select ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getTrims()">
-                {{mod}}
-                </select>
-        <select ng-options="t for t in car.trims" ng-model="car.selected.trim" ng-change="car.getCars()">
-                {{t}}
-                </select>
-        <br />
-        <br />
-        Year: {{car.selected.year}}<br />
-        Make: {{car.selected.make}}<br />
-        Model: {{car.selected.model}}<br />
-        Trim: {{car.selected.trim}}<br />
-        <table>
-            <thead>           
-                <tr>
-                    <th>year</th>
-                    <th>make</th>
-                    <th>model</th>
-                    <th>trim</th>
-                    <th>engine</th>
-                    <th>drive</th>
-                </tr>    
-            </thead>
-            <tbody>
-                <tr ng-repeat="c in car.cars">
-                    <td>{{c.model_year}}</td>
-                    <td>{{c.make}}</td>
-                    <td>{{c.model_trim}}</td>
-                    <td>{{c.engine_power_ps}}</td>
-                    <td>{{c.drive_type}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>   
+
+    <!--navigation-->
+    <div class="top-nav">
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header navbar-left">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1><a class="navbar-brand wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;" href="index.html">Car Finder</a></h1>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1" style="padding-top: 35px;">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li class="hvr-bounce-to-bottom active"><a href="index.html">Home</a></li>
+                        <li class="hvr-bounce-to-bottom"><a href="#welcome" class="scroll">Welcome</a></li>
+                        <li class="hvr-bounce-to-bottom"><a href="#about" class="scroll">Search</a></li>
+                        <li class="hvr-bounce-to-bottom"><a href="#services" class="scroll">About</a></li>
+                        <li class="hvr-bounce-to-bottom"><a href="#contact" class="scroll">Contact</a></li>
+                        <li class="hvr-bounce-to-bottom"><a href="http://localhost:64322/help" class="scroll">API</a></li>
+                    </ul>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!--navigation-->
+    <!--banner-->
+    <div class="banner">
+        <div class="banner-title">
+            <div class="container">
+                <div id="top" class="callbacks_container">
+
+                    <!--<ul class="rslides" id="slider3">
+                        <li>
+                            <div class="banner-text">
+                                <h2>Welcome To Car Finder</h2>
+                                <p>This is a car search program. take a look. </p>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner-text">
+                                <h2>How it works </h2>
+                                <p>This program accesses a database through methods and stored procedures to return specific car makes models years and trims. </p>
+
+                            </div>
+                        </li>
+                        <li>
+                            <div class="banner-text">
+                                <h2>Used for this program</h2>
+                                <p>HTML CSS JavaScript Angularjs Bootstrap SQL  </p>
+
+                            </div>
+                        </li>
+                    </ul>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//banner-->
+    <div class="about" id="welcome" style="padding-bottom: 350px;  background-color: lightgray">
+        <div class="container">
+            <h3 class="title">Welcome to Carfinder!</h3>
+            <div class="col-md-4 about-left wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <img src="images/img2.jpg" alt="">
+            </div>
+            <div class="col-md-8 about-right wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <h4>This Car-Finder Web API application was built using ASP.NET C# and SQL server T-SQL. Providing the user with the most accurate information utilizing the National Highway Traffic Safety Administration Recall API and the Bing Image Search API.</h4>
+                <p>The TNGGrid pluggin, Bootstrap CSS and AngularJS was used resulting in a fully responsive web application.</p>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--about-->
+    <div class="container" id="about" style="padding-bottom: 280px; padding-top: 50px;">
+        <!--<div class="container" >-->
+        <h3 class="title">Search for a Car!</h3>
+        <div class="container" ng-controller="myCtrl as car">
+            <div class="row" style="text-align:center;">
+                <div class="col-lg-3">
+                    <p>Year: </p>
+                    <select ng-options="y for y in car.years" ng-model="car.selected.year" ng-change="car.getMakes()">
+                        {{y}}
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <p>Make: </p>
+                    <select ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">
+                        {{mak}}
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <p>Model: </p>
+                    <select ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getTrims()">
+                        {{mod}}
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <p>Trim: </p>
+                    <select ng-options="t for t in car.trims" ng-model="car.selected.trim" ng-change="car.getCars()">
+                        {{t}}
+                    </select>
+                </div>
+            </div>
+            <br />
+            <br />
+
+
+            <table tr-ng-grid="" items="car.cars" page-items="20">
+                <thead>
+                    <tr>
+                        <th field-name="model_year" display-name="Year"></th>
+                        <th field-name="make"></th>
+                        <th field-name="model_name" display-name="Model"></th>
+                        <th field-name="model_trim" display-name="Trim"></th>
+                        <th field-name="body_style" display-name="Body style"></th>
+                        <th field-name="drive_type" display-name="Drive">drive</th>
+                        <th field-name="transmission_type" display-name="Transmission"></th>
+                        <th field-name="engine_fuel" display-name="Fuel"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><button ng-click="car.open(gridItem.id)">view</button></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <script type="text/ng-template" id="carModal.html" style="position:unset;">
+                <div class="modal-header">
+                    <!--<button class="h1 pull-right btn btn-default" ng-click="cm.cancel()">X</button>-->
+                    <h3 class="modal-title">
+                        Vehicle Information
+                    </h3>
+
+                </div>
+                <div class="modal-body">
+                    <uib-tabset>
+                        <uib-tab class="container" heading="Details">
+                            <div class="row">
+                                <div class="col-md-3"><strong>Year:</strong><br /> {{cm.car.car.model_year}}</div>
+                                <div class="col-md-3"><strong>Make:</strong><br /> {{cm.car.car.make}}</div>
+                                <div class="col-md-3"><strong>Model:</strong><br /> {{cm.car.car.model_name}}</div>
+                                <div class="col-md-3"><strong>Trim:</strong><br /> {{cm.car.car.model_trim}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Body style:</strong><br /> {{cm.car.car.body_style}}</div>
+                                <div class="col-md-3"><strong>Engine position:</strong><br /> {{cm.car.car.engine_position}}</div>
+                                <div class="col-md-3"><strong>Engine cc:</strong><br /> {{cm.car.car.engine_cc}}</div>
+                                <div class="col-md-3"><strong>Engine num cyl:</strong><br /> {{cm.car.car.engine_num_cyl}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Engine type:</strong><br /> {{cm.car.car.engine_type}}</div>
+                                <div class="col-md-3"><strong>Engine valves:</strong><br /> {{cm.car.car.engine_valves_per_cyl}}</div>
+                                <div class="col-md-3"><strong>Engine power:</strong><br /> {{cm.car.car.engine_power_ps}}</div>
+                                <div class="col-md-3"><strong>Engine RPM:</strong><br /> {{cm.car.car.engine_power_rpm}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Engine torque:</strong><br /> {{cm.car.car.engine_torque_nm}}</div>
+                                <div class="col-md-3"><strong>Engine torque RPM:</strong><br /> {{cm.car.car.engine_torque_rpm}}</div>
+                                <div class="col-md-3"><strong>Engine bore:</strong><br /> {{cm.car.car.engine_bore_mm}}</div>
+                                <div class="col-md-3"><strong>Engine stroke:</strong><br /> {{cm.car.car.engine_stroke_mm}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Engine compression:</strong><br /> {{cm.car.car.engine_compression}}</div>
+                                <div class="col-md-3"><strong>Engine fuel:</strong><br /> {{cm.car.car.engine_fuel}}</div>
+                                <div class="col-md-3"><strong>Top speed:</strong><br /> {{cm.car.car.top_speed_kph}}</div>
+                                <div class="col-md-3"><strong>Zero-100:</strong><br /> {{cm.car.car.zero_100_kph}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Drive type:</strong><br /> {{cm.car.car.drive_type}}</div>
+                                <div class="col-md-3"><strong>Transmission type:</strong><br /> {{cm.car.car.transmission_type}}</div>
+                                <div class="col-md-3"><strong>Seats:</strong><br /> {{cm.car.car.seats}}</div>
+                                <div class="col-md-3"><strong>Doors:</strong><br /> {{cm.car.car.doors}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Weight:</strong><br /> {{cm.car.car.weight_kg}}</div>
+                                <div class="col-md-3"><strong>Length:</strong><br /> {{cm.car.car.length_mm}}</div>
+                                <div class="col-md-3"><strong>Width:</strong><br /> {{cm.car.car.width_mm}}</div>
+                                <div class="col-md-3"><strong>Height:</strong><br /> {{cm.car.car.height_mm}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Wheel base:</strong><br /> {{cm.car.car.wheel_base}}</div>
+                                <div class="col-md-3"><strong>LKM hwy:</strong><br /> {{cm.car.car.lkm_hwy}}</div>
+                                <div class="col-md-3"><strong>LKM mixed</strong><br /> {{cm.car.car.lkm_mixed}}</div>
+                                <div class="col-md-3"><strong>LKM city:</strong><br /> {{cm.car.car.lkm_city}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><strong>Fuel capacity:</strong><br />{{cm.car.car.fuel_capacity_l}}</div>
+                                <div class="col-md-3"><strong>Sold in USA:</strong><br /> {{cm.car.car.sold_in_us}}</div>
+                                <div class="col-md-3"><strong>Co2:</strong><br /> {{cm.car.car.co2}}</div>
+                                <div class="col-md-3"><strong>Make display:</strong><br /> {{cm.car.car.make_display}}</div>
+                            </div>
+                        </uib-tab>
+                        <uib-tab heading="Image"><img class="img-responsive" ng-src="{{cm.car.image}}" alt="" width="400" height="400" /></uib-tab>
+                        <uib-tab heading="Recalls: {{cm.car.recalls.Count}}"><div><strong>{{cm.car.recalls.Message}}</strong></div>
+                            
+                                <uib-accordion>
+                                    <uib-accordion-group ng-repeat="result in cm.car.recalls.Results" heading="{{result.Component}}" is-open="group.open">
+                                       
+                                        
+                                        <div><strong>Summary: </strong>{{result.Summary}}</div>
+                                        <div><strong>Consequence: </strong> {{result.Conequence}}</div>
+                                        <div><strong>Remedy: </strong>{{result.Remedy}}</div>
+                                        <div><strong>Notes: </strong>{{result.Notes}}</div>
+                                    </uib-accordion-group>
+                                </uib-accordion>
+                           
+                        </uib-tab>
+                    </uib-tabset>
+                </div>
+                <div class="modal-footer">
+                    <!--<button class="btn btn-primary" ng-click="cm.ok()">OK</button>-->
+                    <button class="btn btn-warning" ng-click="cm.cancel()">Close</button>
+                </div>
+            </script>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+    <!--//about-->
+    <!--services-->
+    <div class="services" id="services">
+        <div class="container">
+            <h3 class="title">This program was built using the following:</h3>
+            <div class="row work-row">
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="img-circle" aria-hidden="true"><img src="images/angular.png" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>AngularJS</h4>
+                        <p>JavaScript framework used for dynamic web applications.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="image-circle" aria-hidden="true"><img src="images/sql2.jpg" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>SQL (Structured Query Language)</h4>
+                        <p>Standard interactive and programming language for getting information from and updating a database.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="image-circle" aria-hidden="true"><img src="images/js-exercises.jpg" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>JavaScript</h4>
+                        <p>Object-oriented computer programming language commonly used to create interactive effects within web browsers.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="image-circle" aria-hidden="true"><img src="images/html5.gif" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>HTML (Hypertext Markup Language)</h4>
+                        <p>a standardized system for tagging text files to achieve font, color, graphic, and hyperlink effects on World Wide Web pages.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="image-circle" aria-hidden="true"><img src="images/json.jpg" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>JSON (JavaScript Object Notation)</h4>
+                        <p>A lightweight data-interchange format.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 work-row-grids wow bounceIn animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                    <div class="work-grids-img">
+                        <span class="image-circle" aria-hidden="true"><img src="images/css3.png" style="width: 80px; height: 80px; border-radius: 50%;" /></span>
+                    </div>
+                    <div class="caption work-captn">
+                        <h4>CSS Cascading Style Sheets</h4>
+                        <p>A style sheet language used for describing the presentation of a document written in a markup language</p>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--//services-->
+    <!--contact-->
+    <div id="contact" class="contact-form pt-section" style="padding-top: 100px; background-color: #e7e7e7">
+        <div class="container">
+
+            <h3 class="title">Contact</h3>
+            <div class="col-md-7 contact-right wow fadeInLeft animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+                <form>
+                    <input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
+                    <input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
+                    <input type="text" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
+                    <textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="col-md-5 contact-left wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+
+                <ul>
+                    <li><span></span>105 Arbor Dr. Elon, NC 27244</li>
+
+                    <li><span class="mail"></span><a href="mailto:example@mail.com">cesimmons84@gmail.com</a></li>
+                    <li><span class="ph-no"></span>919-412-0997</li>
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--//contact-->
+    <!--footer-->
+    <div class="footer wow fadeInRight animated" data-wow-delay=".5s" style="visibility: visible; -webkit-animation-delay: .5s;">
+        <div class="container">
+            <p>Thanks for viewing this car finder program!</p>
+        </div>
+    </div>
+    <!--//footer-->
+    <!-- banner-text Slider starts Here -->
+    <script src="js/responsiveslides.min.js"></script>
+    <script>
+        // You can also use "$(window).load(function() {"
+        $(function () {
+            // Slideshow 3
+            $("#slider3").responsiveSlides({
+                auto: true,
+                pager: true,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks",
+                before: function () {
+                    $('.events').append("<li>before event fired.</li>");
+                },
+                after: function () {
+                    $('.events').append("<li>after event fired.</li>");
+                }
+            });
+        });
+    </script>
+    <!--//End-slider-script -->
+    <!-- start-smoth-scrolling-->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!--//end-smoth-scrolling-->
+    <!--smooth-scrolling-of-move-up-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!--//smooth-scrolling-of-move-up-->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/bootstrap.js"></script>
 </body>
 </html>

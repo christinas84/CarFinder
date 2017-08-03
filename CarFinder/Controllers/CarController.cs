@@ -76,11 +76,11 @@ namespace CarFinder.Controllers
             return Ok(retval);
         }
         /// <summary>
-        /// Get trims by year, make and model
+        /// Get trims by year, make and model. This method returns from the stored procedure GetTrimsByYearMakeModel vehicle trims by make, model year and model name.
         /// </summary>
-        /// <param name="make"></param>
-        /// <param name="model_year"></param>
-        /// <param name="model_name"></param>
+        /// <param name="make">Parameter name is make</param>
+        /// <param name="model_year">Parameter name is model_year</param>
+        /// <param name="model_name">Parameter name is model_name</param>
         /// <returns>This method returns from the stored procedure GetTrimsByYearMakeModel vehicle trims by make, model year and model name.</returns>
         [HttpPost]
         public IHttpActionResult GetTrimsByYearMakeModel(Selected selected)
@@ -148,6 +148,7 @@ namespace CarFinder.Controllers
                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + " " + "NOT ebay",
                 null,
                 null,
+                //"Size:Small+Aspect:Square",
                 null,
                 null,
                 null,
@@ -184,7 +185,7 @@ namespace CarFinder.Controllers
             }
             if (string.IsNullOrWhiteSpace(Image))
             {
-                Image = "images/carnotfound.jpg";
+                Image = "images/carnotfound.png";
             }
             return Ok(new { car = Car, recalls = Recalls, image = Image });
         }

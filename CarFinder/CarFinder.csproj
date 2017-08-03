@@ -34,7 +34,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>App_Data\XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -300,7 +301,6 @@
     <Content Include="App\App.js" />
     <Content Include="App\carSvc.js" />
     <Content Include="App\myCtrl.js" />
-    <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -313,25 +313,47 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\1454604037.ico" />
+    <Content Include="images\1454604498.ico" />
+    <Content Include="images\1454609624.ico" />
+    <Content Include="images\1454636470.ico" />
+    <Content Include="images\2015_ferrari_488_gtb-wide.jpg" />
     <Content Include="images\angular.png" />
+    <Content Include="images\api.png" />
+    <Content Include="images\banner-car.jpg" />
+    <Content Include="images\banner-car1.jpg" />
     <Content Include="images\banner.jpg" />
+    <Content Include="images\banner2.jpg" />
+    <Content Include="images\banner3.jpg" />
+    <Content Include="images\car-icon.png" />
     <Content Include="images\car2.jpg" />
-    <Content Include="images\carnotfound.jpg" />
+    <Content Include="images\carnotfound.png" />
     <Content Include="images\close.png" />
     <Content Include="images\css3.png" />
+    <Content Include="images\fabric_of_squares_gray.png" />
+    <Content Include="images\ferrari-599-gtb-fiorano-red-two-seat-car-and-desert-web-header.jpg" />
+    <Content Include="images\ferrari.jpg" />
+    <Content Include="images\ferrari2.jpg" />
+    <Content Include="images\firebird.jpg" />
+    <Content Include="images\html-css-js.png" />
+    <Content Include="images\HTML5-CSS3-JS.jpg" />
     <Content Include="images\html5.gif" />
+    <Content Include="images\htmlcssjs.png" />
     <Content Include="images\icons.png" />
     <Content Include="images\iconsprite.png" />
     <Content Include="images\img2.jpg" />
     <Content Include="images\javascript.png" />
     <Content Include="images\js-exercises.jpg" />
+    <Content Include="images\jscsshtml.png" />
     <Content Include="images\json.jpg" />
     <Content Include="images\move-up.png" />
     <Content Include="images\next.png" />
     <Content Include="images\no-image.png" />
+    <Content Include="images\polonez_car.png" />
     <Content Include="images\prev.png" />
     <Content Include="images\slid.jpg" />
     <Content Include="images\sql-server.jpg" />
+    <Content Include="images\sql-server.png" />
     <Content Include="images\sql2.jpg" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
@@ -1170,7 +1192,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\trNgGrid.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1187,7 +1211,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

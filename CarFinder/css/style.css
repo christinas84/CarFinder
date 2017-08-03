@@ -4,10 +4,16 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
-
+html{
+     width: 100%;
+    height: 100%;
+}
 body {
     margin: 0;
     font-family: 'PT_Sans-Narrow-Web-Regular';
+     width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 @font-face {
@@ -27,6 +33,7 @@ body a {
     -o-transition: 0.5s all ease;
     -ms-transition: 0.5s all ease;
     text-decoration: none;
+    
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -43,7 +50,8 @@ ul, label {
 }
 
 body a:hover {
-    text-decoration: none;
+    text-decoration: none;   
+   
 }
 /*--header--*/
 .header {
@@ -524,6 +532,11 @@ h3.title {
     margin: 0 0 .5em;
     line-height: 1.6em;
     font-family: 'PT_Sans-Narrow-Web-Regular';
+   
+}
+#about {
+    /*background-color: darkgray;*/
+    background-image: url('../images/fabric_of_squares_gray.png');
 }
 
 .about p {
@@ -1466,6 +1479,8 @@ h2.resp-accordion {
 @media(max-width:640px) {
     .header-info {
         float: left;
+        font-family: Copperplate Gothic;
+  color: black;
     }
 
     form.navbar-form {
@@ -1476,6 +1491,8 @@ h2.resp-accordion {
     .header-info p {
         font-size: 1.1em;
         margin-top: 0.6em;
+        font-family: Copperplate Gothic;
+  color: black;
     }
 
         .header-info p:before {
@@ -1511,10 +1528,12 @@ h2.resp-accordion {
             padding: 1em 0;
             font-size: 1.2em;
             text-align: center;
+            font-family: Copperplate Gothic;
         }
 
     .navbar-default .navbar-nav > li > a {
         color: #01553D;
+        font-family: Copperplate Gothic;
     }
 
     .banner-title {
@@ -1917,3 +1936,6 @@ h2.resp-accordion {
 /*--//responsive-design---*/
 
 
+.fullwidth {
+    width: 100%;
+}

@@ -18,7 +18,6 @@ C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\ros
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\CarFinder.dll.config
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\CarFinder.dll
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\CarFinder.pdb
-C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\XmlDocument.xml
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\Antlr3.Runtime.dll
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\Bing.RestClient.dll
 C:\Users\cesim\Documents\Visual Studio 2015\Projects\CarFinder\CarFinder\bin\EntityFramework.dll

@@ -12,14 +12,18 @@
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
 }
 
-<link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+<link href="~/css/style.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+
 <header class="help-page">
-    <div class="content-wrapper">
-        <div class="float-left">
-            <h1>@ViewBag.Title</h1>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <h1>@ViewBag.Title</h1>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 <div id="body" class="help-page">
     <section class="featured">
         <div class="content-wrapper">
